@@ -10,22 +10,37 @@ var {
   StyleSheet,
   Text,
   View,
+  TouchableHighlight,
 } = React;
 
 var mutton = React.createClass({
+  getInitialState: function(){
+    return {pressing: false};
+  },
+
+  _onPressIn: function() {
+    this.setState({pressing: true})
+  },
+
+  _onPressOut: function() {
+    this.setState({pressing: false})
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Hello Hafiz
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <TouchableHighlight
+          onPressIn={this._onPressIn}
+          onPressOut={this._onPressOut}>
+          <View style={styles.button}>
+            <Text style={styles.welcome}>
+              {this.state.pressing ? 'Clicking' : 'Click Me'}
+            </Text>
+          </View>
+        </TouchableHighlight>
       </View>
     );
   }
@@ -43,10 +58,10 @@ var styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: 'red',
-    marginBottom: 5,
+  button: {
+    padding: 5,
+    backgroundColor: 'green',
+    borderRadius: 5,
   },
 });
 
